@@ -43,7 +43,7 @@ public class BusTableGateway {
               COLUMN_DATE_BUS_BOUGHT + ", " +
               COLUMN_NEXT_SERVICE + ", " +
               COLUMN_GARAGE_ID +
-              ") VALUES (?, ?, ?, ?, ?, ?, ?)";
+              ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
       
       stmt =mConnection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       stmt.setString(1, rn);
@@ -95,7 +95,7 @@ public class BusTableGateway {
       
       
       String regNo, make, model, noOfSeats, engineSize, dateBusBought, nextService;
-      int busesID;
+      int busesID, garageId;
       
       Bus b;
       
@@ -114,8 +114,12 @@ public class BusTableGateway {
           engineSize= rs.getString(COLUMN_ENGINE_SIZE);
           dateBusBought = rs.getString(COLUMN_DATE_BUS_BOUGHT);
           nextService = rs.getString(COLUMN_NEXT_SERVICE);
+          garageId = rs.getInt(COLUMN_GARAGE_ID);
+          if (rs.wasNull()) {
+              garageId = -1;
+          }
           
-          b = new Bus(busesID, regNo, make, model, noOfSeats, engineSize, dateBusBought, nextService);
+          b = new Bus(busesID, regNo, make, model, noOfSeats, engineSize, dateBusBought, nextService, garageId);
           buses.add(b);
       }
       
@@ -128,13 +132,14 @@ public class BusTableGateway {
         int numRowsAffected;
         
         query = "UPDATE " + TABLE_NAME + " SET " +
-                COLUMN_REG_NO       + " = ?, " +
-                COLUMN_MAKE       + " = ?, " +
-                COLUMN_MODEL       + " = ?, " +
-                COLUMN_NO_OF_SEATS       + " = ?, " +
-                COLUMN_ENGINE_SIZE       + " = ?, " +
-                COLUMN_DATE_BUS_BOUGHT       + " = ?, " +
-                COLUMN_NEXT_SERVICE       + " = ? " +
+                COLUMN_REG_NO          + " = ?, " +
+                COLUMN_MAKE            + " = ?, " +
+                COLUMN_MODEL           + " = ?, " +
+                COLUMN_NO_OF_SEATS     + " = ?, " +
+                COLUMN_ENGINE_SIZE     + " = ?, " +
+                COLUMN_DATE_BUS_BOUGHT + " = ?, " +
+                COLUMN_NEXT_SERVICE    + " = ?, " +
+                COLUMN_GARAGE_ID       + " = ? " +
                 " WHERE " + COLUMN_BUSESID + " = ?";
         
         stmt = mConnection.prepareStatement(query);
@@ -145,6 +150,14 @@ public class BusTableGateway {
         stmt.setString(5, b.getEngineSize());
         stmt.setString(6, b.getDateBusBought());
         stmt.setString(7, b.getNextService());
+        int gid = b.getgarageID();
+        if(gid == -1) {
+            stmt.setNull(8, java.sql.Types.INTEGER);
+        }
+        else { 
+            stmt.setInt(8, gid);
+        }
+        stmt.setInt(9, b.getbusesID());
         
         numRowsAffected = stmt.executeUpdate();
         

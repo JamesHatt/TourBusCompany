@@ -40,7 +40,7 @@ public class Model {
     public boolean addBus(Bus b) {
         boolean result = false;
         try {
-            int id = this.gateway.insertBus(b.getRegNo(), b.getMake(), b.getModel(), b.getNoOfSeats(), b.getEngineSize(), b.getDateBusBought(), b.getNextService());
+            int id = this.gateway.insertBus(b.getRegNo(), b.getMake(), b.getModel(), b.getNoOfSeats(), b.getEngineSize(), b.getDateBusBought(), b.getNextService(), b.getgarageID());
             if (id != -1) {
                 b.setbusesID(id);
                 this.buses.add(b);    

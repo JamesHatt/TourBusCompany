@@ -81,8 +81,8 @@ public class MainApp {
     }  
 
     private static void editBus(Scanner kb, Model m) {
-        System.out.print("Enter the seat number of the programmer to edit: ");
-        int busesID = Integer.parseInt(keyboard.nextLine());
+        System.out.print("Enter the bus id to edit: ");
+        int busesID = Integer.parseInt(kb.nextLine());
         Bus b;
         
         b = m.findBusByBusesID(busesID);
@@ -107,9 +107,9 @@ public class MainApp {
             System.out.println("There are no buses in the database. ");
        }
        else { 
-            System.out.printf("%5s %20s %20s %20s %20s %20s %20s %20s\n", "busesID", "RegNo", "Make", "Model", "noOfSeats", "EngineSize", "DateBusBought", "NextService", "garage");
+            System.out.printf("%5s %20s %20s %20s %20s %20s %20s %20s %20s\n", "busesID", "RegNo", "Make", "Model", "noOfSeats", "EngineSize", "DateBusBought", "NextService", "Garage");
             for (Bus pr : buses) {
-               System.out.printf("%5d %22s %20s %20s %20s %20s %20s %20s\n",
+               System.out.printf("%5d %22s %20s %20s %20s %20s %20s %20s %20d\n",
                        pr.getbusesID(),                                
                        pr.getRegNo(),
                        pr.getMake(),
@@ -190,10 +190,5 @@ public class MainApp {
             garageID = Integer.parseInt(line1);
             b.setgarageID(garageID);
         }  
-    }
-
-    private static String getString(Scanner keyboard, String prompt) {
-        System.out.print(prompt);
-        return keyboard.nextLine();
     }
 }
