@@ -11,8 +11,9 @@ public class Bus {
     private String engineSize;
     private String dateBusBought;
     private String nextService;
+    private int garageID;
     
-    public Bus(int id, String rn, String mk, String md, String nos, String es, String dbb, String ns) {
+    public Bus(int id, String rn, String mk, String md, String nos, String es, String dbb, String ns, int gid) {
         this.busesID = id;
         this.regNo = rn;
         this.make = mk;
@@ -21,16 +22,16 @@ public class Bus {
         this.engineSize = es;
         this.dateBusBought = dbb;
         this.nextService = ns;
+        this.garageID = gid;
     }
 
-    Bus(String regNo, String make, String model, String noOfSeats, String engineSize, String dateBusBought, String nextService) {
-        this(-1, regNo, make, model, noOfSeats, engineSize, dateBusBought, nextService);
+    public Bus(String regNo, String make, String model, String noOfSeats, String engineSize, String dateBusBought, String nextService, int garageID) {
+        this(-1, regNo, make, model, noOfSeats, engineSize, dateBusBought, nextService, garageID);
     }
     
     public int getbusesID() {
         return busesID;
     }
-    
     
     public void setbusesID(int busesID) {
         this.busesID = busesID;
@@ -90,6 +91,14 @@ public class Bus {
     
     public void setNextService(String nextService) {
         this.nextService = nextService;
+    }
+    
+    public int getgarageID () {
+        return garageID ;
+    }
+    
+    public void setgarageID(int garageID) {
+        this.garageID = garageID;
     }
 }
         

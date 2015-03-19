@@ -21,12 +21,13 @@ public class BusTableGateway {
   private static final String COLUMN_ENGINE_SIZE = "engineSize";
   private static final String COLUMN_DATE_BUS_BOUGHT = "dateBusBought";
   private static final String COLUMN_NEXT_SERVICE = "nextService";
+  private static final String COLUMN_GARAGE_ID = "garageID";
   
   public BusTableGateway(Connection connection) {
       mConnection = connection;
   }
   
-  public int insertBus(String rn, String mk, String md, String nos, String es, String dbb, String ns)
+  public int insertBus(String rn, String mk, String md, String nos, String es, String dbb, String ns, int gid)
       throws SQLException {
       String query;
       PreparedStatement stmt;
@@ -40,7 +41,8 @@ public class BusTableGateway {
               COLUMN_NO_OF_SEATS + ", " +
               COLUMN_ENGINE_SIZE + ", " +
               COLUMN_DATE_BUS_BOUGHT + ", " +
-              COLUMN_NEXT_SERVICE + 
+              COLUMN_NEXT_SERVICE + ", " +
+              COLUMN_GARAGE_ID +
               ") VALUES (?, ?, ?, ?, ?, ?, ?)";
       
       stmt =mConnection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -51,6 +53,12 @@ public class BusTableGateway {
       stmt.setString(5, es);
       stmt.setString(6, dbb);
       stmt.setString(7, ns);
+      if(gid == -1) {
+          stmt.setNull(8, java.sql.Types.INTEGER);
+      }
+      else { 
+          stmt.setInt(8, gid);
+      }
       
       numRowsAffected = stmt.executeUpdate();
       if (numRowsAffected == 1) {

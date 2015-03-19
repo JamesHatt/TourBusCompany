@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MainApp {
+    private static String line1;
     
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
@@ -106,7 +107,7 @@ public class MainApp {
             System.out.println("There are no buses in the database. ");
        }
        else { 
-            System.out.printf("%5s %20s %20s %20s %20s %20s %20s %20s\n", "busesID", "RegNo", "Make", "Model", "noOfSeats", "EngineSize", "DateBusBought", "NextService");
+            System.out.printf("%5s %20s %20s %20s %20s %20s %20s %20s\n", "busesID", "RegNo", "Make", "Model", "noOfSeats", "EngineSize", "DateBusBought", "NextService", "garage");
             for (Bus pr : buses) {
                System.out.printf("%5d %22s %20s %20s %20s %20s %20s %20s\n",
                        pr.getbusesID(),                                
@@ -116,7 +117,8 @@ public class MainApp {
                        pr.getNoOfSeats(),
                        pr.getEngineSize(),
                        pr.getDateBusBought(),
-                       pr.getNextService());
+                       pr.getNextService(),
+                       pr.getgarageID());
             }
     }
     System.out.println();
@@ -124,7 +126,8 @@ public class MainApp {
     
     private static Bus readBus(Scanner keyb) {
         String regNo, make, model, noOfSeats, engineSize, dateBusBought, nextService;
-        String line;
+        int garageID;
+        String line1;
         
         regNo = getString(keyb, "Enter Registration number please: ");
         make = getString(keyb, "Enter the make please: ");
@@ -133,10 +136,12 @@ public class MainApp {
         engineSize = getString(keyb, "Enter the Engine Size please: ");
         dateBusBought = getString(keyb, "Enter the date the bus was bought please: ");
         nextService = getString(keyb, "Enter the next service date please: ");
+        line1 = getString(keyb, "Enter garage id (enter -1 for no garage): ");
+        garageID = Integer.parseInt(line1);
         
         Bus b = 
                 new Bus(regNo, make, model, noOfSeats,
-                        engineSize, dateBusBought, nextService);
+                        engineSize, dateBusBought, nextService, garageID);
         
         return b;
     }
@@ -148,6 +153,8 @@ public class MainApp {
 
     private static void editBusDetails(Scanner keyb, Bus b) {
         String regNo, make, model, noOfSeats, engineSize, dateBusBought, nextService;
+        int garageID;
+        String line;
         
         regNo = getString(keyb, "Enter Registration Number [" + b.getRegNo() + "]: ");
         make = getString(keyb, "Enter Make [" + b.getMake() + "]: ");
@@ -156,6 +163,7 @@ public class MainApp {
         engineSize = getString(keyb, "Enter Engine Size [" + b.getEngineSize() + "]: ");
         dateBusBought = getString(keyb, "Enter the date the bus was bought [" + b.getDateBusBought() + "]: ");
         nextService = getString(keyb, "Enter the next bus service [" + b.getNextService() + "]: ");
+        line1 = getString (keyb, "Enter garage id (enter -1 for no garage)[" + b.getgarageID() + "]: ");
         
         if (regNo.length() != 0) {
             b.setRegNo(regNo);
@@ -178,18 +186,14 @@ public class MainApp {
         if (nextService.length() != 0) {
             b.setNextService(nextService);
         }   
+        if (line1.length() != 0) {
+            garageID = Integer.parseInt(line1);
+            b.setgarageID(garageID);
+        }  
     }
 
-    private static class keyboard {
-
-        private static String nextLine() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public keyboard() {
-        }
+    private static String getString(Scanner keyboard, String prompt) {
+        System.out.print(prompt);
+        return keyboard.nextLine();
     }
-
-
-
 }
