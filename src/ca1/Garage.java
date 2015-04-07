@@ -2,100 +2,74 @@ package ca1;
 
 public class Garage {
        
-    private int busesID;
-    private String regNo;
-    private String make;
-    private String model;
-    private String noOfSeats;
-    private String engineSize;
-    private String dateBusBought;
-    private String nextService;
     private int garageID;
+    private String name;
+    private String address;
+    private String phoneNo;
+    private String nameOfGarage;
+    private String manager;
 
-    public Garage(int id, String rn, String mk, String md, String nos, String es, String dbb, String ns, int gid) {
-        this.busesID = bid;
-        this.regNo = rn;
-        this.make = mk;
-        this.model = md;
-        this.noOfSeats = nos;
-        this.engineSize = es;
-        this.dateBusBought = dbb;
-        this.nextService = ns;
-        this.garageID = gid;
-    }
+    public Garage(int id, String n, String a, String pn, String nog, String m) {
+        this.garageID = id;
+        this.name = n;
+        this.address = a;
+        this.phoneNo = pn;
+        this.nameOfGarage = nog;
+        this.manager = m;
 
-    public Garage(int bid, String rn, String mk, String md, String nos, String es, String dbb, String ns) {
-        this(bid, rn, mk, md, nos, es, dbb, ns, -1);
-    }
-
-    public int getbId() {
-        return bid;
     }
 
-    public String getRegNo() {
-        return regNo;
+    public Garage(int id, String n, String a, String pn, String nog, String m) {
+        this(-1, n, a, pn, nog, m);
     }
 
-    public String getMake() {
-        return make;
-    }
-
-    public String getModel() {
-        return model;
-    }
-    
-        public String getNoOfSeats() {
-        return noOfSeats;
-    }
-        
-    public String getEngineSize() {
-        return engineSize;
-    }
-            
-    public String getDateBusBought() {
-        return dateBusBought;
-    }
-    
-    public String getNextService() {
-        return nextService;
-    }
-    
-    public int getGarageID() {
+    public int getId() {
         return garageID;
     }
 
-    public void setbid(int id) {
-        this.bid = bid;
+    public String getName() {
+        return name;
     }
 
-    public void setRegNo(String regNo) {
-        this.regNo = regNo;
+    public String getAddress() {
+        return address;
     }
 
-    public void setMake(String make) {
-        this.make = make;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-        
-    public void setNoOfSeats(String noOfSeats) {
-        this.noOfSeats = noOfSeats;
-    }
-
-    public void setEngineSize(String engineSize) {
-        this.make = make;
-    }
-    public void setDateBusBought(String dateBusBought) {
-        this.dateBusBought = dateBusBought;
+    public String getPhoneNo() {
+        return phoneNo;
     }
     
-    public void setNextService(String nextService) {
-        this.nextService = nextService;
+        public String getNameOfGarage() {
+        return nameOfGarage;
     }
-    public void setGarageID(int garageID) {
-        this.garageID = garageID;
+        
+    public String getManager() {
+        return manager;
     }
+
+    public void setId(int id) {
+        this.garageID = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+        
+    public void setNameOfGarage(String nameOfGarage) {
+        this.nameOfGarage = nameOfGarage;
+    }
+
+    public void setManager(String manager) {
+        this.manager = manager;
+    }
+
                 
     }

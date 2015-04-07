@@ -25,8 +25,8 @@ public class Bus {
         this.garageID = gid;
     }
 
-    public Bus(String regNo, String make, String model, String noOfSeats, String engineSize, String dateBusBought, String nextService, int garageID) {
-        this(-1, regNo, make, model, noOfSeats, engineSize, dateBusBought, nextService, garageID);
+    public Bus(String regNo, String make, String model, String noOfSeats, String engineSize, String dateBusBought, String nextService, int gid) {
+        this(-1, regNo, make, model, noOfSeats, engineSize, dateBusBought, nextService, gid);
     }
     
     public int getbusesID() {
