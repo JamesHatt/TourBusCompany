@@ -154,22 +154,28 @@ public class MainApp {
             System.out.println("There are no buses in the database. ");
        }
        else { 
-            System.out.printf("%5s %20s %20s %20s %20s %20s %20s %20s %20s\n", "busesID", "RegNo", "Make", "Model", "noOfSeats", "EngineSize", "DateBusBought", "NextService", "Garage");
-            for (Bus bs : buses) {
-                Garage g = mdl.findGarageById(bs.getGarageID());
-               System.out.printf("%5d %22s %20s %20s %20s %20s %20s %20s %20d\n",
-                       bs.getbusesID(),                                
-                       bs.getRegNo(),
-                       bs.getMake(),
-                       bs.getModel(),
-                       bs.getNoOfSeats(),
-                       bs.getEngineSize(),
-                       bs.getDateBusBought(),
-                       bs.getNextService(),
-                       (g != null) ? g.getNameOfGarage() : "");
-            }
+         displayBuses(buses, mdl);
     }
     System.out.println();
+    }
+    
+    private static void displayBuses(List<Bus> buses, Model mdl) {
+       System.out.printf("%5s %20s %20s %20s %20s %20s %20s %20s %20s\n",
+               "busesID", "RegNo", "Make", "Model", "noOfSeats", 
+               "EngineSize", "DateBusBought", "NextService", "Garage");
+        for (Bus bs : buses) {
+            Garage g = mdl.findGarageById(bs.getGarageID());
+           System.out.printf("%5d %22s %20s %20s %20s %20s %20s %20s %20d\n",
+                bs.getbusesID(),                                
+                bs.getRegNo(),
+                bs.getMake(),
+                bs.getModel(),
+                bs.getNoOfSeats(),
+                bs.getEngineSize(),
+                bs.getDateBusBought(),
+                bs.getNextService(),
+                (g != null) ? g.getNameOfGarage() : "");
+        }
     }
     
         private static void viewBus(Scanner keyboard, Model model) throws DataAccessException {
@@ -347,6 +353,16 @@ public class MainApp {
             System.out.println("manager : " + g.getManager());           
         
             List<Bus> busList = model.getBusesByGarageID(g.getGarageID());
+            System.out.println();
+            if (busList.isEmpty()){
+               System.out.println("This garage stores no buses"); 
+            }
+            else {
+                System.out.println("This garage stores the folowing buses:");
+                System.out.println();
+                displayBuses(busList, model);
+            }
+            System.out.println();
         }
         else {
             System.out.println("Garage not found");
