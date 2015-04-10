@@ -19,11 +19,11 @@ public class Garage {
 
     }
 
-    public Garage(int id, String n, String a, String pn, String nog, String m) {
+    public Garage(String n, String a, String pn, String nog, String m) {
         this(-1, n, a, pn, nog, m);
     }
 
-    public int getId() {
+    public int getGarageID() {
         return garageID;
     }
 
@@ -46,8 +46,10 @@ public class Garage {
     public String getManager() {
         return manager;
     }
+    
+    /* Set Methods */
 
-    public void setId(int id) {
+    public void setGarageID(int id) {
         this.garageID = id;
     }
 

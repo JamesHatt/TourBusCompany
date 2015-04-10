@@ -93,11 +93,11 @@ public class Bus {
         this.nextService = nextService;
     }
     
-    public int getgarageID () {
+    public int getGarageID () {
         return garageID ;
     }
     
-    public void setgarageID(int garageID) {
+    public void setGarageID(int garageID) {
         this.garageID = garageID;
     }
 }

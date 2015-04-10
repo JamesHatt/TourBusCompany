@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ca1;
 
 import java.sql.Connection;
@@ -22,6 +16,7 @@ public class GarageTableGateway {
     private static final String COLUMN_GARAGEID = "garage ID";
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_ADDRESS = "address";
+    private static final String COLUMN_PHONENO = "phoneNo";
     private static final String COLUMN_NAMEOFGARAGE = "nameOfGarages";
     private static final String COLUMN_MANAGER = "manager";
 
@@ -29,7 +24,7 @@ public class GarageTableGateway {
         mConnection = connection;
     }
 
-    public int insertGarage(String n, String o, String e) throws SQLException {
+    public int insertGarage(String n, String a, String pn, String nog, String m) throws SQLException {
         String query;                   // the SQL query to execute
         PreparedStatement stmt;         // the java.sql.PreparedStatement object used to execute the SQL query
         int numRowsAffected;
@@ -37,16 +32,20 @@ public class GarageTableGateway {
 
         // the required SQL INSERT statement with place holders for the values to be inserted into the database
         query = "INSERT INTO " + TABLE_NAME + " (" +
-                COLUMN_NAME + ", " +
-                COLUMN_OFFICE + ", " +
-                COLUMN_EXTENSION +
-                ") VALUES (?, ?, ?)";
+                COLUMN_NAME         + ", " +
+                COLUMN_ADDRESS      + ", " +
+                COLUMN_PHONENO      + ", " +
+                COLUMN_NAMEOFGARAGE + ", " +
+                COLUMN_MANAGER      +
+                ") VALUES (?, ?, ?, ?, ?)";
 
         // create a PreparedStatement object to execute the query and insert the values into the query
         stmt = mConnection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         stmt.setString(1, n);
-        stmt.setString(2, o);
-        stmt.setString(3, e);
+        stmt.setString(2, a);
+        stmt.setString(3, pn);
+        stmt.setString(4, nog);
+        stmt.setString(5, m);
 
         // execute the query and make sure that one and only one row was inserted into the database
         numRowsAffected = stmt.executeUpdate();
@@ -68,7 +67,7 @@ public class GarageTableGateway {
         int numRowsAffected;
 
         // the required SQL DELETE statement with place holders for the id of the row to be remove from the database
-        query = "DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = ?";
+        query = "DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_GARAGEID + " = ?";
 
         // create a PreparedStatement object to execute the query and insert the id into the query
         stmt = mConnection.prepareStatement(query);
@@ -88,9 +87,9 @@ public class GarageTableGateway {
         List<Garage> garages;         // the java.util.List containing the Garage objects created for each row
                                         // in the result of the query the id of a garage
 
-        String name, office, extension;
+        String name, address, phoneNo, nameOfGarage, manager;
         int id;
-        Garage m;                   // a Garage object created from a row in the result of the query
+        Garage g;                   // a Garage object created from a row in the result of the query
 
         // execute an SQL SELECT statement to get a java.util.ResultSet representing
         // the results of the SELECT statement
@@ -103,37 +102,42 @@ public class GarageTableGateway {
         // empty ArrayList
         garages = new ArrayList<Garage>();
         while (rs.next()) {
-            id = rs.getInt(COLUMN_ID);
+            id = rs.getInt(COLUMN_GARAGEID);
             name = rs.getString(COLUMN_NAME);
-            office = rs.getString(COLUMN_OFFICE);
-            extension = rs.getString(COLUMN_EXTENSION);
+            address = rs.getString(COLUMN_ADDRESS);
+            address = rs.getString(COLUMN_PHONENO);
+            nameOfGarage = rs.getString(COLUMN_NAMEOFGARAGE);
+            manager = rs.getString(COLUMN_MANAGER);
 
-            m = new Garage(id, name, office, extension);
-            garages.add(m);
+            g = new Garage(id, name, address, phoneNo, nameOfGarage, manager);
+            garages.add(g);
         }
 
         // return the list of Garage objects retrieved
         return garages;
     }
 
-    boolean updateGarage(Garage m) throws SQLException {
+    boolean updateGarage(Garage g) throws SQLException {
         String query;                   // the SQL query to execute
         PreparedStatement stmt;         // the java.sql.PreparedStatement object used to execute the SQL query
         int numRowsAffected;
 
         // the required SQL INSERT statement with place holders for the values to be inserted into the database
         query = "UPDATE " + TABLE_NAME + " SET " +
-                COLUMN_NAME      + " = ?, " +
-                COLUMN_OFFICE    + " = ?, " +
-                COLUMN_EXTENSION + " = ? " +
-                " WHERE " + COLUMN_ID + " = ?";
+                COLUMN_NAME         + " = ?, " +
+                COLUMN_ADDRESS      + " = ?, " +
+                COLUMN_PHONENO      + " = ?, " +
+                COLUMN_NAMEOFGARAGE + " = ? " +
+                COLUMN_MANAGER + " = ? " +
+                " WHERE " + COLUMN_GARAGEID + " = ?";
 
         // create a PreparedStatement object to execute the query and insert the new values into the query
         stmt = mConnection.prepareStatement(query);
-        stmt.setString(1, m.getName());
-        stmt.setString(2, m.getOffice());
-        stmt.setString(3, m.getExtension());
-        stmt.setInt(4, m.getId());
+        stmt.setString(1, g.getName());
+        stmt.setString(2, g.getAddress());
+        stmt.setString(3, g.getPhoneNo());
+        stmt.setString(4, g.getNameOfGarage());
+        stmt.setString(5, g.getManager());
 
         // execute the query
         numRowsAffected = stmt.executeUpdate();

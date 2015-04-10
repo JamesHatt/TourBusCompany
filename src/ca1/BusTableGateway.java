@@ -150,7 +150,7 @@ public class BusTableGateway {
         stmt.setString(5, b.getEngineSize());
         stmt.setString(6, b.getDateBusBought());
         stmt.setString(7, b.getNextService());
-        int gid = b.getgarageID();
+        int gid = b.getGarageID();
         if(gid == -1) {
             stmt.setNull(8, java.sql.Types.INTEGER);
         }
